@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Calorie Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Calorie Tracker</h1>
+                <div class="header-actions">
+                    <span class="user-email" id="userEmail"></span>
+                    <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="dashboard-main">
+            <div class="stats-card">
+                <div class="stat-item">
+                    <h2 id="totalCalories">0</h2>
+                    <p>Total Calories Today</p>
+                </div>
+                <div class="stat-item">
+                    <h2 id="foodCount">0</h2>
+                    <p>Foods Logged</p>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h2>Add Food Entry</h2>
+                    <form id="foodForm" class="food-form">
+                        <div class="form-group">
+                            <label for="foodName">Food Name</label>
+                            <input 
+                                type="text" 
+                                id="foodName" 
+                                name="foodName" 
+                                placeholder="e.g., Apple"
+                                required
+                            />
+                            <span class="error-message" id="foodNameError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calories">Calories</label>
+                            <input 
+                                type="number" 
+                                id="calories" 
+                                name="calories" 
+                                placeholder="e.g., 95"
+                                required
+                                min="0"
+                                step="1"
+                            />
+                            <span class="error-message" id="caloriesError"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Add Food</button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h2>Today's Food Log</h2>
+                    <div id="foodList" class="food-list">
+                        <p class="empty-state">No foods logged today. Add your first entry!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Food Entry</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="editForm" class="food-form">
+                <input type="hidden" id="editId" />
+                <div class="form-group">
+                    <label for="editFoodName">Food Name</label>
+                    <input 
+                        type="text" 
+                        id="editFoodName" 
+                        name="editFoodName" 
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="editCalories">Calories</label>
+                    <input 
+                        type="number" 
+                        id="editCalories" 
+                        name="editCalories" 
+                        required
+                        min="0"
+                        step="1"
+                    />
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
+
