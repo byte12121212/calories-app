@@ -28,6 +28,50 @@ body {
     line-height: 1.6;
 }
 
+/* Device-specific optimizations */
+.device-desktop .camera-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.device-desktop .camera-video {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.device-desktop .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1400px;
+}
+
+.device-desktop .stats-card {
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+/* Desktop camera improvements */
+.device-desktop .camera-controls {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.device-desktop .camera-init {
+    padding: 60px 40px;
+}
+
+/* Touch device optimizations */
+.touch-device .btn {
+    min-height: 44px; /* Better touch target */
+}
+
+.no-touch-device .btn {
+    min-height: auto;
+}
+
 /* Container */
 .container {
     min-height: 100vh;
@@ -436,6 +480,27 @@ body {
     flex: 1;
 }
 
+.modal-body {
+    padding: 24px;
+}
+
+.verification-email {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 16px 0;
+    font-size: 16px;
+}
+
+.verification-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.verification-actions .btn {
+    flex: 1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .auth-card {
@@ -472,6 +537,268 @@ body {
     }
 }
 
+/* Email Validation Feedback */
+.form-group input.email-valid {
+    border-color: var(--success-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%2310b981' d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+.form-group input.email-invalid {
+    border-color: var(--error-color);
+}
+
+.form-group input.email-suspicious {
+    border-color: var(--warning-color);
+}
+
+.form-group input.email-checking {
+    border-color: var(--secondary-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%2364748b' d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2z'/%3E%3Cpath fill='%2364748b' d='M8 4a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.success-message {
+    color: var(--success-color);
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 18px;
+}
+
+/* Tabs */
+.add-food-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -2px;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Camera Scanner */
+.camera-container {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.camera-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.camera-init {
+    padding: 40px 20px;
+    text-align: center;
+    z-index: 5;
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 18px;
+    min-height: 56px;
+}
+
+.camera-icon, .capture-icon {
+    font-size: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.camera-hint {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.camera-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 90%;
+    max-width: 300px;
+}
+
+.btn-capture {
+    background: var(--primary-color);
+    color: white;
+    font-size: 18px;
+    padding: 16px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-capture:active {
+    transform: scale(0.95);
+}
+
+.camera-error {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 20px;
+    text-align: center;
+    z-index: 15;
+    position: relative;
+}
+
+/* Scan Result */
+.scan-result {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.scan-result-content {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.scanned-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.scan-result-info h3 {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.scanned-calories {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 24px;
+}
+
+.scan-result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* AR Overlay Canvas */
+.ar-overlay {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Floating Calories (AR Style) */
+.floating-calories {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(99, 102, 241, 0.95);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 16px;
+    text-align: center;
+    z-index: 25;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-10px); }
+}
+
+.ar-food-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.ar-calories {
+    font-size: 32px;
+    font-weight: 700;
+}
+
 @media (max-width: 480px) {
     .auth-header h1 {
         font-size: 24px;
@@ -482,6 +809,36 @@ body {
     }
     
     .stat-item h2 {
+        font-size: 28px;
+    }
+    
+    .camera-container {
+        min-height: 300px;
+    }
+    
+    .camera-controls {
+        width: 95%;
+        bottom: 10px;
+    }
+    
+    .btn-capture {
+        font-size: 16px;
+        padding: 14px;
+    }
+    
+    .scan-result-content {
+        padding: 20px;
+    }
+    
+    .scanned-image {
+        max-width: 100%;
+    }
+    
+    .ar-food-name {
+        font-size: 18px;
+    }
+    
+    .ar-calories {
         font-size: 28px;
     }
 }

@@ -17,7 +17,7 @@ async function handleLogin(e) {
     const password = document.getElementById('password').value;
     
     // Validate inputs
-    if (!validateLoginForm(email, password)) {
+    if (!(await validateLoginForm(email, password))) {
         return;
     }
     
@@ -27,6 +27,12 @@ async function handleLogin(e) {
     // Check if user exists
     if (!users[email]) {
         showFieldError('emailError', 'User not found. Please sign up first.');
+        return;
+    }
+    
+    // Check if email is verified
+    if (!isEmailVerified(email)) {
+        showAuthError('Please verify your email address before logging in. Check your email for the verification code.');
         return;
     }
     
@@ -60,7 +66,7 @@ async function handleRegister(e) {
     const confirmPassword = document.getElementById('confirmPassword').value;
     
     // Validate inputs
-    if (!validateRegisterForm(email, password, confirmPassword)) {
+    if (!(await validateRegisterForm(email, password, confirmPassword))) {
         return;
     }
     
@@ -98,17 +104,21 @@ async function handleRegister(e) {
  * Validate login form
  * @param {string} email - Email address
  * @param {string} password - Password
- * @returns {boolean} - True if valid
+ * @returns {Promise<boolean>} - True if valid
  */
-function validateLoginForm(email, password) {
+async function validateLoginForm(email, password) {
     let isValid = true;
     
     if (!email) {
         showFieldError('emailError', 'Email is required.');
         isValid = false;
-    } else if (!isValidEmail(email)) {
-        showFieldError('emailError', 'Please enter a valid email address.');
-        isValid = false;
+    } else {
+        // Use enhanced email validation
+        const emailValidation = await validateEmail(email);
+        if (!emailValidation.valid) {
+            showFieldError('emailError', emailValidation.message);
+            isValid = false;
+        }
     }
     
     if (!password) {
@@ -124,17 +134,21 @@ function validateLoginForm(email, password) {
  * @param {string} email - Email address
  * @param {string} password - Password
  * @param {string} confirmPassword - Confirm password
- * @returns {boolean} - True if valid
+ * @returns {Promise<boolean>} - True if valid
  */
-function validateRegisterForm(email, password, confirmPassword) {
+async function validateRegisterForm(email, password, confirmPassword) {
     let isValid = true;
     
     if (!email) {
         showFieldError('emailError', 'Email is required.');
         isValid = false;
-    } else if (!isValidEmail(email)) {
-        showFieldError('emailError', 'Please enter a valid email address.');
-        isValid = false;
+    } else {
+        // Use enhanced email validation
+        const emailValidation = await validateEmail(email);
+        if (!emailValidation.valid) {
+            showFieldError('emailError', emailValidation.message);
+            isValid = false;
+        }
     }
     
     if (!password) {
